@@ -355,7 +355,7 @@ navbar:
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
 search:
-  enable: 
+  enable: true
 
   # 搜索索引文件的路径，可以是相对路径或外站的绝对路径
   # Path for search index file, it can be a relative path or an absolute path
@@ -383,7 +383,7 @@ banner:
 
   # 图片最小的宽高比，以免图片两边被过度裁剪，适用于移动端竖屏时，如需关闭设为 0
   # Minimum ratio of width to height, applicable to the vertical screen of mobile device, if you need to close it, set it to 0
-  width_height_ratio: 1.0
+  width_height_ratio: 0.8
 
 # 向下滚动的箭头
 # Scroll down arrow
@@ -465,7 +465,7 @@ index:
   # 头图高度，屏幕百分比
   # Height ratio of banner image
   # Available: 0 - 100
-  banner_img_height: 100
+  banner_img_height: 50
 
   # 头图黑色蒙版的不透明度，available: 0 - 1.0， 1 是完全不透明
   # Opacity of the banner mask, 1.0 is completely opaque
@@ -724,11 +724,11 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    type: gitalk
 
 
 #---------------------------
@@ -767,11 +767,11 @@ disqus:
 # Based on GitHub Issues
 # See: https://github.com/gitalk/gitalk#options
 gitalk:
-  clientID:
-  clientSecret:
-  repo:
-  owner:
-  admin: ['name']
+  clientID: Ov23lixu5hmQnjGSPSZA
+  clientSecret: e226ed617eb142f6cbc35ee7fa6f2d976938a164
+  repo: BLOG  
+  owner: onewhitethreee
+  admin: ['onewhitethreee']
   language: zh-CN
   labels: ['Gitalk']
   perPage: 10
