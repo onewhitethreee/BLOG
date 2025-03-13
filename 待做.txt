@@ -1,5 +1,0 @@
-加上meilisearch的搜索组件
-
-华为云的服务器要安装一下群晖
-
-加上meilisearch
