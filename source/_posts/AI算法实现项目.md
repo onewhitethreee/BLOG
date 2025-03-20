@@ -207,3 +207,7 @@ results = custom_experiment.run_batch_size_experiment(...)
 ## 参考资料
 
 本项目中的CNN模型实现部分参考了论文"THE ALL CONVOLUTIONAL NET"。
+
+## 作者
+
+[Github 链接](https://github.com/onewhitethreee/Introduction-of-simple-algorithm/blob/main/readme-zh.md)
