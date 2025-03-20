@@ -2,11 +2,11 @@
 uuid: 0ede5b10-05dd-11f0-8677-dd8228c3635c
 title: AI算法实现项目
 date: 2025-03-20 23:45:44
-tags: [AI, 算法, 项目]
-categories: [项目, AI]
+tags: [A*, 算法, 项目]
+categories: [算法]
 img: https://www.apascualco.com/wp-content/uploads/2020/02/a_-search-algorithm-1.png
 ---
-# AI算法实现项目
+# A*算法实现项目
 
 本项目包含两个主要部分：A*寻路算法实现（prac1）和图像识别模型实现（prac2）。
 
