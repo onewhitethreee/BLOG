@@ -4,7 +4,7 @@ title: AI算法实现项目
 date: 2025-03-20 23:45:44
 tags: [A*, 算法, 项目]
 categories: [算法]
-img: https://www.apascualco.com/wp-content/uploads/2020/02/a_-search-algorithm-1.png
+img: https://img.164314.xyz/2025/03/9293d2d8528d234f71813d678e05af89.png
 ---
 # A*算法实现项目
 
