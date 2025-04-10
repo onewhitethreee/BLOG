@@ -1,6 +1,6 @@
 ---
 uuid: d795ec90-13c4-11f0-8cd6-3b0c89ef1167
-title: leetcode】刷题家之112. Path Sum
+title: 【leetcode】刷题家之112. Path Sum
 date: 2025-04-07 17:27:39
 tags: [leetcode]
 categories: [leetcode]
