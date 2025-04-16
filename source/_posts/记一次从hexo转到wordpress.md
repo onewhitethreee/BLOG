@@ -56,3 +56,9 @@ https://blog.1kye.com/277/
 ---
 
 https://github.com/onekyle/HexoToWordPress
+
+---
+
+题外话，在我上传到wordpress后的博客（我那些没有index_img的博客），显示不出来图片，反倒是手动在wordpress后台创建的会自动分配一张图片，不知道为什么，可能是bug吗？
+
+![](https://img.164314.xyz/2025/04/fc2b17a109305b444227d89e98e479c3.png)
