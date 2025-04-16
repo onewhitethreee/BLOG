@@ -8,7 +8,6 @@ tags:
   - markdown
 categories: hexo
 ---
-
 https://linux.do/t/topic/563664?u=onewhite
 
 从昨天的话题想到，静态博客每一次写完一个新的就都要重新上传，打包，我提出了一个想法，如果有一万篇内容的话甚至更多，那么这个打包的时间会非常的长。在这个求问贴中提出了有没有什么优化方案
@@ -61,4 +60,6 @@ https://github.com/onekyle/HexoToWordPress
 
 题外话，在我上传到wordpress后的博客（我那些没有index_img的博客），显示不出来图片，反倒是手动在wordpress后台创建的会自动分配一张图片，不知道为什么，可能是bug吗？
 
-![](https://img.164314.xyz/2025/04/fc2b17a109305b444227d89e98e479c3.png)
+就像是这个Test我是后台写的，另外一些其他的我是直接接口上传的，没有显示图片，不知道是为什么.
+
+![](https://img.164314.xyz/2025/04/bcf83bbfab56a7a44f785887c3be7227.png)
