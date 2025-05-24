@@ -5,6 +5,7 @@ date: 2025-05-24 21:02:44
 tags: [jmeter]
 ---
 
+Estos son los configuraciones de jmeter para estudiar examen 
 
 ![](https://img.164314.xyz/2025/05/e328cc4a959ce1e2756a5fb38b15a774.png)
 
