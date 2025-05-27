@@ -48,3 +48,7 @@ Estos son los configuraciones de jmeter para estudiar examen
 ![](https://img.164314.xyz/2025/05/7c59f8d28cd9f9a151265a0ca492d642.png)
 
 ![](https://img.164314.xyz/2025/05/87eb2c4cff4c3307c8f66088e7b3ce38.png)
+
+![](https://img.164314.xyz/2025/05/e3a6d9be5a88569b9cc207b8ce576969.png)
+
+![](https://img.164314.xyz/2025/05/0469a3dd832e5d37e81bd92c6975ccb2.png)
