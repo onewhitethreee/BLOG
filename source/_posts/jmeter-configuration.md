@@ -8,7 +8,9 @@ tags: [jmeter]
 Estos son los configuraciones de jmeter para estudiar examen 
 
 
-https://164314.xyz/ppss/9/jmeter.html
+https://164314.xyz/ppss/9/jmter.html 
+
+https://164314.xyz/ppss/9/jmter2.html 
 
 
 ![](https://img.164314.xyz/2025/05/e328cc4a959ce1e2756a5fb38b15a774.png)
