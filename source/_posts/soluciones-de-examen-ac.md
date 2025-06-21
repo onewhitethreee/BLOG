@@ -3,6 +3,7 @@ uuid: 575833a0-47bb-11f0-ad60-2b8b7e448256
 title: soluciones de examen ac
 date: 2025-06-12 20:30:39
 tags: [ac]
+hide: true
 ---
 
 # Junio 2023
