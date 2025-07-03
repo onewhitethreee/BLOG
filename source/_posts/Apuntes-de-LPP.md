@@ -7,6 +7,10 @@ tags: Lpp
 
 # Funciones de orden superior
 
+## mi-map, mi filter y mi-foldr
+
+![](https://img.164314.xyz/2025/07/9fd86b5497af70476318a31d3f05d705.png)
+
 ![](https://img.164314.xyz/2025/07/24a069fb1b267a18ddb3fccab5c33b24.png)
 
 ![](https://img.164314.xyz/2025/07/a187906fb0ca0a29d819137fe3c98e57.png)
