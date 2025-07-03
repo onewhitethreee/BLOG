@@ -176,3 +176,24 @@ tags: Lpp
 ![](https://img.164314.xyz/2025/07/ab71ef783a7966c0e70f2523209bf6cc.png)
 
 ![](https://img.164314.xyz/2025/07/ce913d9b12dce2857bf6e84f72563b7e.png)
+
+
+## Funciones de orden superior 
+
+![](https://img.164314.xyz/2025/07/ed15e0b459eda1688c5c042d6af7c7d0.png)
+
+## inout para modificar el argumento paso por valor
+
+![](https://img.164314.xyz/2025/07/ec4ef7029162677ca98fdd9aa5e82b02.png)
+
+## Recursion 
+
+![](https://img.164314.xyz/2025/07/ee2e79fad6733284770ed5893cdb28bd.png)
+
+## Max min de ...
+
+![](https://img.164314.xyz/2025/07/7b4b14bb515254527ef12b867864ce74.png)
+
+## Usos de sortby
+
+![](https://img.164314.xyz/2025/07/88781d78d789fa0ae573f6c73637e1db.png)
