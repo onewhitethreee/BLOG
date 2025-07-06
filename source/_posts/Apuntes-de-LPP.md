@@ -3,8 +3,8 @@ uuid: 8ba22530-578d-11f0-ab7d-c957232e1633
 title: Apuntes de LPP
 date: 2025-07-02 23:43:09
 tags: Lpp
+hide: true
 ---
-
 # Funciones de orden superior
 
 ## mi-map, mi filter y mi-foldr
@@ -21,7 +21,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/6b13998bc44fe12ef8dab2b88c96dfe1.png)
 
-## Buscar mayor 
+## Buscar mayor
 
 ![](https://img.164314.xyz/2025/07/ccf872322579fb625c38f71bf81edae4.png)
 
@@ -45,7 +45,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/92e1aec40bac49a2052494923a3f45d4.png)
 
-## expande lista 
+## expande lista
 
 ![](https://img.164314.xyz/2025/07/20404d670ddff25266fa9990a68e9372.png)
 
@@ -53,7 +53,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/0c49bda3385539344392b72184670bd8.png)
 
-## mi-foldl y binario a decimal 
+## mi-foldl y binario a decimal
 
 ![](https://img.164314.xyz/2025/07/fd17eb086ee7a9e878a1c6d59013b22b.png)
 
@@ -63,7 +63,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/524436b98992bce9e7544ad84c02b823.png)
 
-## Figuras 
+## Figuras
 
 ![](https://img.164314.xyz/2025/07/86063cd7314d0c1b03f01e5dcc46588f.png)
 
@@ -83,11 +83,11 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/c48a69cca8f6f16d03126ed4450b951c.png)
 
-## nivel mas profundo 
+## nivel mas profundo
 
 ![](https://img.164314.xyz/2025/07/49ad3a69f0a0c9b5c1c6423ccbd6c1a5.png)
 
-## mezclar lista 
+## mezclar lista
 
 ![](https://img.164314.xyz/2025/07/4cd7e626b2a4d47320e44bdb9d9f141e.png)
 
@@ -99,7 +99,7 @@ tags: Lpp
 
 # Arbol
 
-## suma arbol 
+## suma arbol
 
 ![](https://img.164314.xyz/2025/07/6c6b9e574e6216e255769ce9a0beb0cb.png)
 
@@ -107,7 +107,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/9e2527433871bf21b49818d6f35c6ffe.png)
 
-## todas hojas cumplen 
+## todas hojas cumplen
 
 ![](https://img.164314.xyz/2025/07/b1b92d032e90d2c47b93942a480db480.png)
 
@@ -117,11 +117,11 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/2f41f7a3ef70a7bedae4de8916e3ab84.png)
 
-## Es camino 
+## Es camino
 
 ![](https://img.164314.xyz/2025/07/1c87391368f3472b57cfa8fedadd8bd9.png)
 
-## Nodos nivel 
+## Nodos nivel
 
 ![](https://img.164314.xyz/2025/07/0da24b727d992544596e392536b9a25e.png)
 
@@ -131,15 +131,15 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/8fcd54de49349ef953de7ae09bac4d81.png)
 
-## suma arbol binario 
+## suma arbol binario
 
 ![](https://img.164314.xyz/2025/07/63f02d90d62571a2403b0687303e8713.png)
 
-## to lista arbol binario 
+## to lista arbol binario
 
 ![](https://img.164314.xyz/2025/07/db33e7465fdc346ca56ea3ca4c8b98e5.png)
 
-## cuadrado arbol binario 
+## cuadrado arbol binario
 
 ![](https://img.164314.xyz/2025/07/1991a6cd72be81912de3dbff10e28d57.png)
 
@@ -147,17 +147,17 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/df4ad70e475e17ee37cc8256dbaad07c.png)
 
-## camino arbolb 
+## camino arbolb
 
 ![](https://img.164314.xyz/2025/07/3bcbb8ae19d120a0f8b2a56c3dee09a3.png)
 
-## arbol binario simetrico 
+## arbol binario simetrico
 
 ![](https://img.164314.xyz/2025/07/daf8f3793fdf44dea173096b8be09c20.png)
 
 # Swift
 
-## Uso de swift 
+## Uso de swift
 
 ![](https://img.164314.xyz/2025/07/fb42857c84353e5892664b6f4bba087c.png)
 
@@ -177,8 +177,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/ce913d9b12dce2857bf6e84f72563b7e.png)
 
-
-## Funciones de orden superior 
+## Funciones de orden superior
 
 ![](https://img.164314.xyz/2025/07/ed15e0b459eda1688c5c042d6af7c7d0.png)
 
@@ -186,7 +185,7 @@ tags: Lpp
 
 ![](https://img.164314.xyz/2025/07/ec4ef7029162677ca98fdd9aa5e82b02.png)
 
-## Recursion 
+## Recursion
 
 ![](https://img.164314.xyz/2025/07/ee2e79fad6733284770ed5893cdb28bd.png)
 
