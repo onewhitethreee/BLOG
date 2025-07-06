@@ -101,3 +101,48 @@ uno de sus módulos.
 ๏ Los módulos de un proyecto multimódulo también pueden construirse de forma individual: un módulo es un proyecto maven con un empaquetado diferente de pom: puede ser jar, war, ear..
 
 
+# Integracion 
+
+## PRUEBAS DE INTEGRACIÓN
+
+๏ Nuestra SUT estará formado por un conjunto de unidades. El objetivo principal es detectar defectos en las INTERFACES de dicho conjunto de unidades. Recuerda que dichas unidades ya habrán sido probadas individualmente 
+
+๏ Son pruebas dinámicas (requieren la ejecución de código), y también son pruebas de verificación (buscamos encontrar defectos en el código). Se realizan de forma INCREMENTAL siguiendo una ESTRATEGIA de integración, la cual determinará EL ORDEN en el que se deben seleccionar las unidades a integrar 
+
+๏ Las pruebas de integración se realizan de forma incremental, añadiendo cada vez un determinado número de unidades, hasta que al final tengamos integradas TODAS ellas. En cada una de las "fases" tenemos que REPETIR TODAS las pruebas anteriores. A este proceso se le denomina PRUEBAS DE REGRESIÓN. Las pruebas de regresión provocan que las últimas unidades que se añaden al conjunto sean las MENOS probadas. Este hecho debemos tenerlo en cuenta a la hora de tomar una decisión para una estrategia de integración u otra, además del tipo de proyecto que estemos desarrollando (interfaz compleja o no, lógica de negocio compleja o no, tamaño del proyecto, riesgos,...) 
+
+๏ Recuerda que no podemos integrar dos unidades si no hay ninguna relación entre ellas, ya que el objetivo es encontrar errores en las interfaces de dichas unidades (en la interconexión entre ellas). Por eso es indispensable tener en cuenta el diseño de nuestra aplicación (qué componentes tenemos y cómo están relacionados) a la hora de determinar la estrategia de integración (qué componentes van a integrarse cada vez y en qué orden.)
+
+## DISEÑO DE PRUEBAS DE INTEGRACIÓN
+
+๏ Se usan técnicas de caja negra. Básicamente se seleccionan los comportamientos a probar (en cada una de las fases de integración) siguiendo unas guías generales en función del tipo de interfaces que usemos en nuestra aplicación. Si usamos el método de particiones equivalentes debemos añadir filas adicionales proporcionando comportamientos que ejerciten los extremos de las particiones.
+
+๏ Recuerda que si nuestro test de integración da como resultado "failure" buscaremos la causa del error en las interfaces, aunque es posible que en este nivel de pruebas, salgan a la luz defectos no detectados durante las pruebas unitarias (ya que NO podemos hacer pruebas exhaustivas, por lo tanto, nunca podremos demostrar que el código probado no tiene más defectos de los que hemos sido capaces de encontrar).
+
+## AUTOMATIZACIÓN DE LAS PRUEBAS DE INTEGRACIÓN CON UNA BD
+
+๏ Usaremos la librería dbunit para automatizar las pruebas de integración con una BD. Esta librería es necesaria para controlar el estado de la BD antes de la ejecución de la SUT, y comprobar el estado resultante después de dicha ejecución..
+
+๏ Los tests de integración deben ejecutarse después de realizar todas la pruebas unitarias. Necesitamos disponer de todos los .class de nuestras unidades (antes de decidir un ORDEN de integración), por lo que los tests requerirán del empaquetado previo en un .jar de todos los .class de nuestro código. 
+
+๏ Los tests de integración son ejecutados por el plugin failsafe. Debemos añadirlo al pom, asociando la goal integration-test a la fase con el mismo nombre. Esta goal no detiene el proceso de construcción si falla algún test. Por eso necesitamos incluir la goal verify (que asociaremos a la fase verify). De esta forma podemos detener la construcción del proyecto realicando las acciones que consideremos oportunas en la fase post-integration-test (como por ejemplo detener un servidor de aplicaciones, detener el servidor de base de datos)
+
+๏ El plugin sql permite ejecutar scripts sql. Es interesante para incluir acciones sobre la BD durante el proceso de construcción del proyecto. Por ejemplo, "recrear" las tablas de nuestra BD antes de ejecutar los tests de integración, e inicializar dichas tablas con ciertos datos. La goal "execute" es la que se encarga de ejecutar el script, que situaremos físicamente en la carpeta "resources" de nuestro proyecto maven. Necesitaremos configurar el driver con los datos de acceso a la BD, y también asociar la goal a alguna fase previa a la fase en la que se ejecutan los tests de integración (por ejemplo pre-integration-test).
+
+# Webdriver
+
+## AUTOMATIZACIÓN DE PRUEBAS DE SISTEMA/ACEPTACIÓN
+
+๏ Consideraremos el caso de que nuestra SUT sea una aplicación web, por lo que usaremos webdriver para implementar y ejecutar los casos de prueba. La aplicación estará desplegada en un servidor web o un servidor de aplicaciones, y nuestros tests accederán a nuestro SUT a través de webdriver, que será nuestro intermediario con el navegador (en este caso usaremos Chrome, junto con el driver correspondiente)
+
+๏ Si usamos webdriver directamente en nuestros tests, éstos dependerán del código html de las páginas web de la aplicación a probar, y por lo tanto serán muy "sensibles" a cualquier cambio en el código html. Una forma de independizarlos de la interfaz web es usar el patrón PAGE OBJECT,, de forma que nuestros tests NO contendrán código webdriver (que dependa del código html). El código webdriver estará en las page objects que son las clases que dependen directamente del código html, a su vez nuestros tests dependerán de las page objects.
+
+๏ Junto con el patrón Page Object, usaremos la clase PageFactory para crear e inicializar los atributos de una Page Object. Los valores de atributos se inyectan en el test mediante la anotación @Findby, y a través del locator correspondiente. Esta inyección se realiza de forma "lazy", es decir, los valores se inyectan justo antes de ser usados. Para que las anotaciones @Findby sean operativas, necesariamente tendremos que crear las "page objects" mediante el método estático PageFactory..initElements()
+
+๏ Con webdriver podemos manejar las alertas generadas por la aplicación a probar, introducir esperas (implícitas y explícitas), realizar scroll en la pantalla del navegador, agrupar acciones sobre los elementos, movernos entre ventanas, y manejar cookies, entre otras cosas.
+
+๏ El manejo de las cookies del navegador nos será útil para acortar la duración de los tests, ya que podremos evitar loguearnos en la aplicación para probar determinados escenarios.
+
+๏ Además, podemos ejecutar nuestros tests en modo "headless" sin necesidad de abrir el navegador, por lo que
+nuestros tests se ejecutarán mucho mucho más rápido.
+
