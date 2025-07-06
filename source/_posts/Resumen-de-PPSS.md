@@ -79,3 +79,25 @@ tags:
 
 ๏ NO usaremos estructuras de control para programar las expectativas (bucles, condiciones...).
 
+# Proyecto multimodulo 
+
+## PROYECTOS INTELLIJ
+
+๏ Un proyecto IntelliJ puede contener diferentes tipos de proyectos: proyectos maven, java, android, servicios rest, servicios web..., cada uno de ellos se denomina MÓDULO.
+
+๏ Un proyecto IntelliJ no se construye ya que no contiene código, el proceso de construcción se realiza para cada
+uno de sus módulos. 
+
+## PROYECTOS MAVEN MULTIMÓDULO
+
+๏ Un proyecto MAVEN puede ser "single" (single-maven proyect) o puede contener, a su vez, varios proyectos maven. (multimodule maven proyect), cada uno de los cuales se denomina MODULO. 
+
+๏ El proyecto multimódulo tiene un empaquetado pom, en el que se pueden AGREGAR tantos módulos (proyectos maven) como se necesite. El mecanismo de agregación permite ejecutar un comando maven (una vez), y se ejecutará automáticamente en todos los módulos agregados, en el orden determinado por las dependencias entre ellos, e identificado por el mecanismo REACTOR de maven.
+
+๏ Se pueden establecer adicionalmente relaciones de HERENCIA entre los módulos de un proyecto multimódulo, de esta forma pueden compartir  ropiedades, plugins, y dependencias.
+
+๏ En un proyecto multimódulo se pueden usar ambas relaciones (herencia y agregación) o sólo una de ellas.
+
+๏ Los módulos de un proyecto multimódulo también pueden construirse de forma individual: un módulo es un proyecto maven con un empaquetado diferente de pom: puede ser jar, war, ear..
+
+
