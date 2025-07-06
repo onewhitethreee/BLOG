@@ -146,3 +146,40 @@ uno de sus módulos.
 ๏ Además, podemos ejecutar nuestros tests en modo "headless" sin necesidad de abrir el navegador, por lo que
 nuestros tests se ejecutarán mucho mucho más rápido.
 
+# Jmeter
+
+## DISEÑO DE PRUEBAS DE ACEPTACIÓN DE PROPIEDADES EMERGENTES NO FUNCIONALES
+
+๏ Los comportamientos a probar se seleccionan teniendo en cuenta la especificación (caja negra)..
+
+๏ En general, las propiedades emergentes no funcionales contribuyen a determinar el rendimiento (performance) de nuestra aplicación, en cuyo caso tendremos que tener en cuenta el "perfil operacional" de la misma, que refleja la frecuencia con la que un usuario usa normalmente los servicios del sistema.
+
+๏ Es muy importante que las propiedades emergentes puedan cuantificarse, por lo que deberemos usar las métricas adecuadas que nos permitan medir dichas propiedades.
+
+## AUTOMATIZACIÓN DE PRUEBAS DE ACEPTACIÓN
+
+๏ Usaremos JMeter, para implementar nuestros drivers sin usar código java..
+
+๏ Las "sentencias" de nuestros drivers NO son líneas de código escritas de forma secuencial, sino que usaremos una estructura jerárquica (árbol) en donde los nodos representan elementos de diferentes tipos (grupos de hilos, listeners, samplers, controllers...), que podremos configurar.. El orden de ejecución de dichos elementos dependerá de dónde estén situados en la jerarquía. Nuestro driver tendrá como nodo raíz un "plan de pruebas",
+
+๏ Los "resultados" de la ejecución de nuestros test JMeter, consisten en una serie de datos calculados a partir de ciertas métricas (número de muestras tiempos de ejecución,...), que necesariamente estarán registradas en los listeners que hayamos usado para la implementación de cada driver.
+
+๏ Los resultado obtenidos por la herramienta JMeter no son suficientes para determinar la validez o no de nuestras pruebas. Será necesario un análisis posterior, que dependerá de la propiedad emergente que queramos validar para poder cuantificarla.
+
+# Cobertura 
+
+## NIVELES DE COBERTURA
+
+๏ La cobertura es una métrica que mide la extensión de nuestras pruebas. Existen diferentes variantes de esta métrica, que se pueden clasificar or niveles, de menos a más cobertura. Es importante entender cada uno de los niveles.
+
+๏ El cálculo de esta métrica forma parte del análisis de pruebas, que se realiza después de su ejecución..
+
+## HERRAMIENTA JaCoCo
+
+๏ JaCoCo es una herramienta que permite analizar la cobertura de nuestras pruebas, calculando los valores de varios "contadores" (JaCoCo counters), como son: líneas de código, instrucciones, complejidad ciclomática, módulos, clases,... También se pueden calcular los valores a nivel de proyecto,, paquete, clases y métodos.
+
+๏ JaCoCo puede usarse integrado con maven a través del plugin correspondiente. Es posible realizar una instrumentación de las clases on-the-fly, o de forma off-line. En nuestro caso usaremos la primera de las opciones.
+
+๏ JaCoCo genera informes de cobertura tanto para los tests unitarios como para los tests de integración. Y en cualquier caso, se pueden establecer diferentes "reglas" para establecer diferentes niveles de cobertura dependiendo de los valores de los contadores, de forma que si no se cumplen las restricciones especificadas, el proceso de construcción no terminará con éxito.
+
+๏ De igual forma, para proyectos multimódulo, se pueden generar informes "agregados", de forma que el informe agregado de cada módulo "incluye" los informes de cobertura de los módulos de los que depende.
