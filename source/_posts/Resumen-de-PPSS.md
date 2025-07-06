@@ -49,3 +49,33 @@ tags:
 ๏ Después de ejecutar la SUT, el driver comparará el resultado real obtenido con el esperado y finalmente generará un informe (Assert).
 
 ๏ Dado que el informe de pruebas dependerá exclusivamente del ESTADO resultante de la ejecución de nuestra SUT, nuestro driver estará realizando una VERIFICACIÓN BASADA EN EL ESTADO.
+
+# Dependencias externas - Mocks
+
+## VERIFICACIÓN BASADA EN EL ESTADO
+๏ El driver de una prueba unitaria puede realizar una verificación basada en el estado resultante de la ejecución de la unidad a probar .
+
+๏ Si la unidad a probar tiene dependencias externas que necesitemos controlar, éstas serán sustituidas por STUBS durante las pruebas. Los stubs  controlarán las entradas indirectas de nuestra SUT. Un stub no puede hacer que nuestro test falle (el resultado del test no depende de la  interacción de nuestra SUT con sus dependencias externas)
+
+๏ Para poder usar los dobles (stubs) en nuestras pruebas, éstos tienen que poder inyectarse en nuestra SUT a través de los "enabling seam points".
+
+๏ Podemos implementar los dobles de forma "manual" o usando el framework EasyMock. 
+
+๏ Si implementamos los stubs "manualmente", éstos deben NECESARIAMENTE implementarse en una clase separada de la clase que contiene nuestros tests. La clase que contiene la implementación de nuestros dobles tendrá el sufijo "Stub", o "Testable" (este último caso sólo si necesitamos inyectar el stub a través de dicha clase).
+
+๏ Si usamos el framework EasyMock, la implementación del doble necesariamente estará en cada driver. Nuestros dobles estarán implementados en objetos de tipo NiceMock. Tendremos que programar las expectativas de forma que nuestro test no falle si se invoca más veces de lo esperado al doble, o con diferentes parámetros.Finalmente necesitamos indicar al framework que hemos finalizado la programación de las expectativas (método replay()).
+
+## VERIFICACIÓN BASADA EN EL COMPORTAMIENTO
+
+๏ El driver de una prueba unitaria puede realizar una verificación basada en el comportamiento, de forma que no sólo se tenga en cuenta el resultado real, sino también la interacción de nuestra SUT con sus dependencias externas (cuántas veces se invocan, con qué parámetros, y en un orden determinado).
+
+๏ Los dobles usados si realizamos una verificación basada en el comportamiento se denominan mocks. Un mock constituye un punto de observación de las salidas indirectas de nuestra SUT, y además registra la interacción del doble con el SUT. Un mock sí puede provocar que el test falle.
+
+๏ Para poder usar los dobles (mocks), éstos tienen que poder inyectarse en nuestra SUT a través de los "enabling seam points".
+
+๏ Para implementar los dobles usaremos la librería EasyMock. Para ello tendremos que crear el doble (de tipo Mock, o StrictMock, programar sus expectativas, indicar que el doble ya está listo para ser usado y finalmente verificar la interacción con el SUT
+
+๏ Si nuestros dobles pertenecen a clases diferentes, necesariamente tendremos que incluirlos en un StrictControl. para que se tenga en cuenta el orden de invocaciones entre las diferentes clases.
+
+๏ NO usaremos estructuras de control para programar las expectativas (bucles, condiciones...).
+
