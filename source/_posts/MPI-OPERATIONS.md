@@ -1052,3 +1052,377 @@ MPI_Allreduce() // 结果所有进程都有
 ---
 
 还有什么具体想深入的吗？
+
+
+# 常见 MPI 考题类型详解
+
+---
+
+## 1. 填空题
+
+**题目形式**：给不完整代码，补全参数
+
+```c
+// 把 n 从进程0广播给所有进程，填空
+MPI_Bcast(&n, ___, ___, ___, MPI_COMM_WORLD);
+```
+
+**答案**：
+```c
+MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+//            ↑    ↑      ↑
+//          数量  类型   root进程
+```
+
+---
+
+## 2. 改错题
+
+**题目形式**：给有 bug 的代码，找出并修正
+
+```c
+// 找出错误
+int n = 100;
+MPI_Bcast(&n, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+```
+
+**答案**：
+```c
+// n 是 int，应该用 MPI_INT
+MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+```
+
+**常见错误类型**：
+- 类型不匹配
+- 死锁
+- 忘记 Init/Finalize
+- Send/Recv 不配对
+
+---
+
+## 3. 编程题
+
+**题目形式**：写完整并行程序
+
+**例1：并行求数组和**
+```c
+// 4个进程并行求 a[0]+a[1]+...+a[99] 的和
+```
+
+**答案思路**：
+```c
+// 每个进程算一部分
+int local_sum = 0;
+for (i = rank * 25; i < (rank + 1) * 25; i++) {
+    local_sum += a[i];
+}
+// 汇总
+MPI_Reduce(&local_sum, &total, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+```
+
+---
+
+**例2：并行求 π**（你代码里那个）
+
+```c
+// 用梯形法则并行计算 π
+```
+
+---
+
+## 4. 分析题
+
+**题目形式**：计算或分析性能
+
+**例1：计算加速比**
+```
+串行程序运行时间：8秒
+用4个进程并行：3秒
+求加速比
+```
+
+**答案**：
+```
+加速比 = 8 / 3 = 2.67
+```
+
+---
+
+**例2：分析通信开销**
+```
+程序中调用了多少次通信？
+哪些可以优化？
+```
+
+---
+
+## 总结表格
+
+| 题型 | 考什么 | 难度 |
+|------|--------|------|
+| 填空 | 记住函数参数 | ⭐ |
+| 改错 | 理解常见错误 | ⭐⭐ |
+| 编程 | 会写并行程序 | ⭐⭐⭐ |
+| 分析 | 理解并行原理 | ⭐⭐ |
+
+---
+
+需要我出几道练习题给你做吗？
+
+
+# MPI 练习题
+
+---
+
+## 一、填空题（每空 2 分）
+
+### 第 1 题
+```c
+// 进程0把数组data广播给所有进程
+double data[100];
+MPI_Bcast(_____, _____, _____, _____, MPI_COMM_WORLD);
+```
+
+---
+
+### 第 2 题
+```c
+// 把所有进程的 local_sum 求和，结果存到进程0的 total 中
+int local_sum, total;
+MPI_Reduce(&local_sum, &total, _____, _____, _____, _____, MPI_COMM_WORLD);
+```
+
+---
+
+### 第 3 题
+```c
+// 获取当前进程的编号和总进程数
+int rank, size;
+MPI_Comm_rank(_____, _____);
+MPI_Comm_size(_____, _____);
+```
+
+---
+
+## 二、改错题（每题 5 分）
+
+### 第 4 题
+找出下面代码的错误并改正：
+```c
+double x = 3.14;
+MPI_Bcast(&x, 1, MPI_INT, 0, MPI_COMM_WORLD);
+```
+
+---
+
+### 第 5 题
+下面代码会死锁，请改正：
+```c
+if (rank == 0) {
+    MPI_Recv(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
+    MPI_Send(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+} else if (rank == 1) {
+    MPI_Recv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
+    MPI_Send(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+}
+```
+
+---
+
+### 第 6 题
+找出错误：
+```c
+int main() {
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    printf("I am process %d\n", rank);
+    MPI_Finalize();
+    return 0;
+}
+```
+
+---
+
+## 三、编程题
+
+### 第 7 题（10 分）
+用 4 个进程并行计算数组求和：
+```
+数组 a[100] = {1, 2, 3, ..., 100}
+每个进程计算 25 个元素的和
+最后把结果汇总到进程 0
+```
+
+写出核心代码。
+
+---
+
+### 第 8 题（10 分）
+用 MPI 实现并行求最大值：
+- 每个进程有一个局部变量 `local_max`
+- 找出所有进程中的最大值
+- 结果存到进程 0
+
+---
+
+## 四、分析题
+
+### 第 9 题（5 分）
+```
+串行程序运行 12 秒
+用 4 个进程并行运行 4 秒
+用 8 个进程并行运行 2.5 秒
+
+(1) 计算 4 进程和 8 进程的加速比
+(2) 哪个效率更高？为什么？
+```
+
+---
+
+### 第 10 题（5 分）
+解释 `MPI_Reduce` 和 `MPI_Allreduce` 的区别，各在什么场景下使用？
+
+---
+
+---
+
+# 参考答案
+
+<details>
+<summary>点击展开答案</summary>
+
+## 填空题答案
+
+**第 1 题**
+```c
+MPI_Bcast(data, 100, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+```
+
+**第 2 题**
+```c
+MPI_Reduce(&local_sum, &total, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+```
+
+**第 3 题**
+```c
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+MPI_Comm_size(MPI_COMM_WORLD, &size);
+```
+
+---
+
+## 改错题答案
+
+**第 4 题**
+```c
+// x 是 double，应该用 MPI_DOUBLE
+MPI_Bcast(&x, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+```
+
+**第 5 题**
+```c
+// 一个先发，一个先收
+if (rank == 0) {
+    MPI_Send(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+    MPI_Recv(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
+} else if (rank == 1) {
+    MPI_Recv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
+    MPI_Send(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+}
+```
+
+**第 6 题**
+```c
+// 缺少 MPI_Init
+int main(int argc, char *argv[]) {
+    MPI_Init(&argc, &argv);  // 加上这行
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    printf("I am process %d\n", rank);
+    MPI_Finalize();
+    return 0;
+}
+```
+
+---
+
+## 编程题答案
+
+**第 7 题**
+```c
+int a[100];
+int rank, size;
+int local_sum = 0, total = 0;
+
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+// 初始化数组（进程0做）
+if (rank == 0) {
+    for (int i = 0; i < 100; i++) a[i] = i + 1;
+}
+
+// 广播数组
+MPI_Bcast(a, 100, MPI_INT, 0, MPI_COMM_WORLD);
+
+// 每个进程算自己那部分
+int start = rank * 25;
+int end = start + 25;
+for (int i = start; i < end; i++) {
+    local_sum += a[i];
+}
+
+// 汇总
+MPI_Reduce(&local_sum, &total, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+if (rank == 0) {
+    printf("Total = %d\n", total);  // 应该是 5050
+}
+```
+
+**第 8 题**
+```c
+int local_max, global_max;
+
+// 假设每个进程已经有了 local_max
+
+MPI_Reduce(&local_max, &global_max, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
+
+if (rank == 0) {
+    printf("Max = %d\n", global_max);
+}
+```
+
+---
+
+## 分析题答案
+
+**第 9 题**
+```
+(1) 加速比：
+    4进程：12 / 4 = 3
+    8进程：12 / 2.5 = 4.8
+
+(2) 4进程效率更高
+    4进程效率：3 / 4 = 75%
+    8进程效率：4.8 / 8 = 60%
+    
+    原因：进程越多，通信开销越大
+```
+
+**第 10 题**
+```
+区别：
+- MPI_Reduce：结果只在 root 进程
+- MPI_Allreduce：结果所有进程都有
+
+使用场景：
+- MPI_Reduce：只有一个进程需要结果（如最后输出）
+- MPI_Allreduce：所有进程都需要结果继续计算
+```
+
+</details>
+
+---
+
+先自己做一遍，再看答案！有问题可以问我。
