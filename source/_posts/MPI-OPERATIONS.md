@@ -680,3 +680,250 @@ Scan = 扫描累加
 - 并行前缀和
 - 分配全局编号
 - 负载均衡计算偏移量
+
+# MPI_Finalize 和 MPI_Finalized
+
+---
+
+## MPI_Finalize
+
+### 一句话解释
+
+**结束MPI，清理资源**
+
+### 用法
+
+```c
+MPI_Finalize();
+```
+
+### 注意
+
+- 调用后不能再用任何MPI函数
+- 每个进程都要调用
+- 程序结尾必须调用
+
+---
+
+## MPI_Finalized
+
+### 一句话解释
+
+**查询MPI是否已结束**
+
+### 用法
+
+```c
+int flag;
+MPI_Finalized(&flag);
+
+if (flag) {
+    // MPI已结束
+} else {
+    // MPI还在运行
+}
+```
+
+---
+
+## 对比
+
+| 函数 | 作用 |
+|------|------|
+| MPI_Init | 开始MPI |
+| MPI_Initialized | 查是否开始了 |
+| **MPI_Finalize** | **结束MPI** |
+| **MPI_Finalized** | **查是否结束了** |
+
+---
+
+## 典型程序结构
+
+```c
+int main() {
+    MPI_Init(NULL, NULL);
+    
+    // ... MPI代码 ...
+    
+    MPI_Finalize();  // 必须调用
+    return 0;
+}
+```
+
+---
+
+## 记忆
+
+```
+Init      = 开门
+Finalize  = 关门
+
+Initialized = 门开了吗？
+Finalized   = 门关了吗？
+```
+
+# MPI_Send 和 MPI_Recv
+
+---
+
+## 一句话解释
+
+**Send发送数据，Recv接收数据**
+
+---
+
+## 类比
+
+寄信：
+- Send = 寄出信
+- Recv = 收到信
+
+---
+
+## 图示
+
+```
+进程0                    进程1
+  |                        |
+  |------- 数据 --------->|
+  Send                   Recv
+```
+
+---
+
+## 用法
+
+### MPI_Send（发送）
+
+```c
+MPI_Send(
+    &data,      // 发什么
+    count,      // 几个
+    MPI_INT,    // 什么类型
+    dest,       // 发给谁（目标进程号）
+    tag,        // 标签（信封标记）
+    MPI_COMM_WORLD
+);
+```
+
+### MPI_Recv（接收）
+
+```c
+MPI_Recv(
+    &data,      // 收到哪
+    count,      // 最多收几个
+    MPI_INT,    // 什么类型
+    source,     // 从谁收（源进程号）
+    tag,        // 标签（要匹配）
+    MPI_COMM_WORLD,
+    &status     // 状态信息
+);
+```
+
+---
+
+## 完整例子
+
+```c
+int data;
+
+if (rank == 0) {
+    data = 100;
+    MPI_Send(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+} 
+else if (rank == 1) {
+    MPI_Recv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
+    // data现在是100
+}
+```
+
+---
+
+## 重要参数
+
+| 参数 | 说明 |
+|------|------|
+| dest/source | 对方进程号 |
+| tag | 必须匹配 |
+| MPI_ANY_SOURCE | 接收任意来源 |
+| MPI_ANY_TAG | 接收任意标签 |
+
+---
+
+## 注意
+
+- **阻塞**：Send/Recv完成前不返回
+- **匹配**：source、dest、tag要对应
+- **死锁**：两个进程互相等对方会卡住
+
+---
+
+## 记忆
+
+```
+Send = 寄信（目的地 + 标签）
+Recv = 收信（来源 + 标签）
+
+标签要匹配，否则收不到
+```
+
+# MPI 中有阻塞和非阻塞两种
+
+---
+
+## 阻塞（Blocking）- 等完才继续
+
+```c
+MPI_Send()      // 发送完才返回
+MPI_Recv()      // 收到才返回
+MPI_Bcast()     // 广播完才返回
+MPI_Reduce()    // 规约完才返回
+```
+
+**必须等操作完成，程序才往下走。**
+
+---
+
+## 非阻塞（Non-blocking）- 不等，继续干别的
+
+```c
+MPI_Isend()     // I = Immediate，立即返回
+MPI_Irecv()
+MPI_Ibcast()
+MPI_Ireduce()
+```
+
+**发起请求就返回，可以边算边通信。**
+
+---
+
+## 简单对比
+
+| 类型 | 函数名 | 特点 |
+|------|--------|------|
+| 阻塞 | MPI_Send | 等待完成 |
+| 非阻塞 | MPI_Isend | 立即返回，需要 MPI_Wait |
+
+---
+
+## 非阻塞需要配合 Wait
+
+```c
+MPI_Request req;
+MPI_Isend(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &req);
+
+// 这里可以做其他计算...
+
+MPI_Wait(&req, &status);  // 最后等待完成
+```
+
+---
+
+## 你代码里用的都是阻塞的
+
+```c
+MPI_Bcast()   // 阻塞
+MPI_Reduce()  // 阻塞
+```
+
+**大多数情况用阻塞就够了，简单安全。**
