@@ -1618,3 +1618,148 @@ MPI_Isend：非阻塞，立刻返回，后面用 MPI_Wait 等待完成
 </details>
 
 ---
+
+# PI monte Carlo 并行实现示例
+
+```c
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <mpi.h>
+
+// Calculo de PI utilizando montecarlos
+int main(int argc, char *argv[])
+{
+    int rank, size;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int n_puntos = 10000000;
+
+    double PI25DT = 3.141592653589793238462643;
+    double piR;
+    MPI_Bcast(&n_puntos, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if (n_puntos <= 0)
+    {
+        MPI_Finalize();
+        exit(0);
+    }
+    else
+    {
+
+        int dentro = 0;
+        double x, y, pi;
+
+        srand(time(NULL)); // Semilla aleatoria
+
+        for (int i = rank + 1; i < n_puntos; i += size)
+        {
+            x = (double)rand() / RAND_MAX * 2 - 1; // Entre -1 y 1
+            y = (double)rand() / RAND_MAX * 2 - 1;
+
+            if (x * x + y * y <= 1)
+            {
+                dentro++;
+            }
+        }
+
+        pi = 4.0 * dentro / n_puntos;
+        MPI_Reduce(&pi, &piR, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        if (rank == 0)
+        {
+            printf("Pi aproximado: %f\n", piR);
+            printf("Puntos usados: %d\n", n_puntos);
+            printf("Resultado de pi es: %f con un error de %f", piR, fabs(PI25DT - piR));
+        }
+    }
+    MPI_Finalize();
+    return 0;
+}
+```
+
+---
+
+# Pi Riemann 并行实现示例
+
+```c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+// calcular el valor de pi utilizando seria de Rieenman
+int main(int argc, char **argv)
+{
+    int size, rank;
+
+    int n = 20000;
+    double PI = 3.141592653589793238462643;
+    double pi;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if (n <= 0)
+    {
+        MPI_Finalize();
+        exit(0);
+    }
+    else
+    {
+        double h = 1.0 / (double)n;
+        double sum = 0.0;
+
+        for (int i = rank + 1; i <= n; i += size)
+        {
+            double x = h * ((double)i - 0.5);
+            sum += (4.0 / (1.0 + x * x));
+        }
+        double mypi = sum * h;
+        MPI_Reduce(&mypi, &pi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        if (rank == 0)
+        {
+            printf("El valor aproximado de pi es: %f con un error de %f", pi, fabs(pi - PI));
+        }
+    }
+    MPI_Finalize();
+    return 0;
+}
+```
+
+---
+
+# Envio y Recepcion de Mensajes en MPI
+
+```c
+#include <mpi.h>
+#include <stdio.h>
+// enviar y recibir
+int main(int argc, char **argv)
+{
+    int rank, size;
+    int contador;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    if (rank == 0)
+    {
+        MPI_Send(&rank, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+        MPI_Recv(&contador, 1, MPI_INT, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("Soy el proceso %d y he recibido %d\n", rank, contador);
+        contador++;
+        if (rank != size - 1)
+        {
+            MPI_Send(&contador, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD);
+        }
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+```
