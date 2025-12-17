@@ -927,3 +927,128 @@ MPI_Reduce()  // 阻塞
 ```
 
 **大多数情况用阻塞就够了，简单安全。**
+
+# MPI 考试复习要点
+
+---
+
+## 1. 基础函数（必考）
+
+```c
+MPI_Init(&argc, &argv);      // 初始化
+MPI_Finalize();              // 结束
+MPI_Comm_rank(comm, &rank);  // 获取进程号
+MPI_Comm_size(comm, &size);  // 获取总进程数
+```
+
+---
+
+## 2. 点对点通信
+
+```c
+MPI_Send(&data, count, type, dest, tag, comm);
+MPI_Recv(&data, count, type, source, tag, comm, &status);
+```
+
+**注意：Send 和 Recv 必须配对，否则死锁！**
+
+---
+
+## 3. 集合通信（重要）
+
+| 函数 | 作用 |
+|------|------|
+| MPI_Bcast | 一对多广播 |
+| MPI_Reduce | 多对一规约 |
+| MPI_Allreduce | 规约后所有进程都有结果 |
+| MPI_Scatter | 一对多分发（每人不同数据） |
+| MPI_Gather | 多对一收集 |
+| MPI_Barrier | 同步，等所有进程到达 |
+
+---
+
+## 4. 常用数据类型
+
+| MPI类型 | C类型 |
+|---------|-------|
+| MPI_INT | int |
+| MPI_DOUBLE | double |
+| MPI_FLOAT | float |
+| MPI_CHAR | char |
+
+---
+
+## 5. 常用规约操作
+
+| 操作 | 含义 |
+|------|------|
+| MPI_SUM | 求和 |
+| MPI_MAX | 最大值 |
+| MPI_MIN | 最小值 |
+| MPI_PROD | 乘积 |
+
+---
+
+## 6. 死锁问题（常考）
+
+```c
+// ❌ 死锁：都在等对方
+if (rank == 0) {
+    MPI_Recv(...);  // 等进程1发
+    MPI_Send(...);
+} else {
+    MPI_Recv(...);  // 等进程0发
+    MPI_Send(...);
+}
+```
+
+```c
+// ✅ 正确：一个先发一个先收
+if (rank == 0) {
+    MPI_Send(...);
+    MPI_Recv(...);
+} else {
+    MPI_Recv(...);
+    MPI_Send(...);
+}
+```
+
+---
+
+## 7. 运行命令
+
+```bash
+mpicc -o prog prog.c      # 编译
+mpirun -np 4 ./prog       # 用4个进程运行
+```
+
+---
+
+## 8. 并行计算加速比
+
+```
+加速比 = 串行时间 / 并行时间
+理想情况：用 n 个进程，加速 n 倍
+```
+
+---
+
+## 9. Reduce vs Allreduce
+
+```c
+MPI_Reduce()    // 结果只在 root 进程
+MPI_Allreduce() // 结果所有进程都有
+```
+
+---
+
+## 10. 常见考题类型
+
+1. **填空**：补全 MPI 函数参数
+2. **改错**：找死锁、类型不匹配
+3. **编程**：并行求和、求π、矩阵运算
+4. **分析**：计算加速比、通信开销
+
+---
+
+还有什么具体想深入的吗？
