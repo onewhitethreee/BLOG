@@ -3,9 +3,10 @@ uuid: 89d4ba50-3b14-11f0-b7a6-3d7e7afa4fd1
 title: configuraciones de proyecto multimodulo maven
 date: 2025-05-27 18:06:24
 tags: [maven]
----
+hide: true
 
-Para estudiar el examen 
+---
+Para estudiar el examen
 
 ![](https://img.164314.xyz/2025/05/f0657132f5c5cd05e023ca9e87d9e0c8.png)
 
