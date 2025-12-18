@@ -4,22 +4,7 @@ title: SD_DEPLEY
 date: 2025-12-14 03:13:04
 tags:
 ---
-# Informe de Desarrollo - Práctica EVCharging Release 2
 
-## Sistemas Distribuidos - Curso 25/26
-
----
-
-## **Estudiantes**:
-
-- Yangfeng Liu
-- Yanan chen
-
-## **Año Académico**: 2025/2026
-
-## **Título**: Práctica EVCharging Network - Release 2 (Seguridad y API Rest)
-
----
 
 ## 1. Informe de Desarrollo
 
