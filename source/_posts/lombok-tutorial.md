@@ -19,7 +19,7 @@ Para usar Lombok en tu proyecto, primero debes agregar la dependencia de Lombok 
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <scope>provided</scope>
+    <version>1.18.42</version>
 </dependency>
 ```
 
