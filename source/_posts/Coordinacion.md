@@ -201,15 +201,15 @@ En un sistema distribuido, no tenemos memoria compartida ni un reloj global, por
 ### Algoritmo de exclusión mutua 
 
 3 propiedades clave: 
-1. Correctitud: Solo un proceso puede estar en la sección crítica a la vez.(Seguridad)
-2. Vivacidad: Si un proceso desea entrar en la sección crítica, eventualmente lo hará.(Liveness)
-3. Justicia: Todos los procesos tienen la misma oportunidad de acceder a la sección crítica.(Fairness). Generalmente utiliza el orden causal(Lamport) o FIFO. 
+1. **Correctitud**: Solo un proceso puede estar en la sección crítica a la vez.(Seguridad)
+2. **Vivacidad**: Si un proceso desea entrar en la sección crítica, eventualmente lo hará.(Liveness)
+3. **Justicia**: Todos los procesos tienen la misma oportunidad de acceder a la sección crítica.(Fairness). Generalmente utiliza el orden causal(Lamport) o FIFO. 
 
 Se divide en 3 categorías:
 
-1. Algoritmos centralizados: Un proceso central coordina todas las peticiones de entrada y salida de la sección crítica.
-2. Algoritmos basado en Token(Token ring): Un único token(un mensaje especial) circula por el sistema. 
-3. Algoritmos distribuidos: No hay token ni proceso central. Los procesos se comunican entre sí para coordinar el acceso a la sección crítica.Ej: Algoritmo de Ricart-Agrawala y Lamport.
+1. **Algoritmos centralizados**: Un proceso central coordina todas las peticiones de entrada y salida de la sección crítica.
+2. **Algoritmos basado en Token(Token ring)**: Un único token(un mensaje especial) circula por el sistema. 
+3. **Algoritmos distribuidos**: No hay token ni proceso central. Los procesos se comunican entre sí para coordinar el acceso a la sección crítica.Ej: Algoritmo de Ricart-Agrawala y Lamport.
 
 
 #### Algoritmo centralizado
@@ -619,3 +619,61 @@ Si un proceso detecta la perdida del lider(timeout), se declara a sí mismo cand
 
 ## El problema de estado global 
 
+Un problema fundamental en sistemas distribuidos es cómo podemos de poner todos de acuerdo sobre el estado global del sistema cuando no existe un reloj global ni memoria compartida.
+
+El estado global de un sistema distribuido se compone de dos partes:
+
+1. El estado local de cada proceso individual.
+2. El estado de los canales de comunicación entre los procesos (mensajes en tránsito).
+
+Entonces, cómo podemos capturar una instantánea consistente del estado global?
+
+### Definicion de corte(cut)
+
+Un corte es una línea que divide los eventos del sistema en dos conjuntos: **El pasado y el futuro.**
+
+#### Corte inconsistente
+
+Es una instantánea invalida. Su característica definitoria es que viola la causalidad(happened-before). Es decir, incluye el efecto de un evento sin incluir su causa.
+
+![](https://img.164314.xyz/2025/12/8df58aaa2557d51f0750304867172a75.png)
+
+
+#### Corte consistente
+
+Un corte consistente es el objetivo de un algoritmo de snapshot. Es una instantánea que respeta la causalidad. Por cada efento(recepción) que se captura en el pasado del core, la causa(envío) también debe estar en el pasado del corte.
+
+![](https://img.164314.xyz/2025/12/c7a7e0906b46dafbc6ec65a1a225906d.png)
+
+![](https://img.164314.xyz/2025/12/3893719305b7b88fbc1134cd85a33369.png)
+
+### Algoritmo de Chandy-Lamport(Algoritmo de snapshot)
+
+El objetivo de siste algoritmo es capturar un corte consistente sin interrumpir la ejecución normal del sistema. 
+
+**Reglas del algoritmo:**
+
+**Iniciador del snapshot:**
+
+1. P_i graba su estado local. 
+2. P_i envía un mensaje especial llamado marcador(MARKER) por todos sus canales de salida.
+3. P_i empieza a grabar todos los mensajes que lleguen por sus canales de entrado hasta que reciba un marcador por cada canal de entrada.
+
+**Proceso receptor del marcador:**
+
+Al recibir un mensaje Market por un canal C_i:
+
+1. Si es la primera vez que recibe:
+   1. Graba su estado local.
+   2. Marca el estado del canal C_i como vacío.
+   3. Repetir la regla 1
+   4. Empieza a grabar todos los mensajes que lleguen por sus canales de entrada excepto C_i.
+2. Si ya ha recibido un marcador antes:
+   1. Deja de grabar el estado del canal C_i. 
+   2. Cierra la grabación del estado del canal C_i.
+
+![](https://img.164314.xyz/2025/12/1361e02378db1fead7a6c05560c5473a.png)
+
+![](https://img.164314.xyz/2025/12/18e486f9f7709f6e4fca96cf7a4898fa.png)
+
+![](https://img.164314.xyz/2025/12/28e8afcb3a15762a5c4b6f3eff5df2eb.png)
