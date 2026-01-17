@@ -269,7 +269,6 @@ Un algoritmo que no requiere un coordinador ni un token.
 
 Cuando un lider falla, todos los procesos se detiense. Para un sistema que sea robusto, necesita un que sea capaz de elegir un nuevo lider cuando el actual falla.
 
-#### Algoritmo de elección(Algoritmo por invitación)
 
 #### Algoritmo de Garcia-Molina(Bully election)
 
@@ -610,6 +609,14 @@ Term 1    Term 2    Term 3
 ---
 
 **一句话：选个老大，老大负责同步数据，多数同意才算成功。**
+
+#### Algoritmo de invitación y fusión
+
+![](https://img.164314.xyz/2026/01/cc8f9135342a2e1ffb58adf5a72c31a8.png)
+
+![](https://img.164314.xyz/2026/01/ce5b78620b3fd54c5afc22f448ed66a5.png)
+
+![](https://img.164314.xyz/2026/01/eabcc75088ff3dae52679da07bcfac1f.png)
 
 ##### Perdida de lider
 
