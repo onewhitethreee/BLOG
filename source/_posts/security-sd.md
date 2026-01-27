@@ -3,6 +3,7 @@ uuid: 0c0d6920-e66b-11f0-aad7-1978c6b97adb
 title: security_sd
 date: 2025-12-31 18:06:28
 tags:
+hide: true
 ---
 
 # Canal seguro y sus propiedades

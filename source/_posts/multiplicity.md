@@ -3,6 +3,7 @@ uuid: a8d65b70-e28a-11f0-a5b5-39118c5f9ca1
 title: multiplicity
 date: 2025-12-26 19:42:41
 tags:
+hide: true
 ---
 
 好的！这是**多重性（Multiplicidad）**的概念，表示**关系的数量**！

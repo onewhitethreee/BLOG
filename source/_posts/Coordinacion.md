@@ -4,6 +4,7 @@ layout: sistemas
 title: Coordinación
 date: 2025-12-28 18:34:28
 tags:
+hide: true
 ---
 # Problema de la sincronización de procesos
 

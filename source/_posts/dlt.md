@@ -3,6 +3,7 @@ uuid: 4e626790-e976-11f0-b05c-c7074cbc7712
 title: dlt
 date: 2026-01-04 15:04:37
 tags:
+hide: true
 ---
 
 # El sistema de fichero clásico 
