@@ -3,6 +3,7 @@ uuid: ced78e20-40fe-11f1-8f97-f5eae19f0f38
 title: MTIS_practica3
 date: 2026-04-26 01:30:56
 tags:
+hide: true
 ---
 
 # Practica 3: ESB - muleSoft
