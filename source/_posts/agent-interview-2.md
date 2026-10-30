@@ -2,7 +2,7 @@
 uuid: 73727ed0-d458-11f1-9486-7daf5bc1edb5
 title: agent_interview_2
 date: 2026-10-30 12:52:58
-tags:
+tags: [面试, Agent]
 ---
 
 前文纪要 [社招后端转型 Agent 路径（已落地）](https://linux.do/t/topic/3054536)
